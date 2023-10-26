@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SocailLogin from "./SocailLogin";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { loginUser } = useAuth();
@@ -12,14 +13,18 @@ const Login = () => {
 
     loginUser(email, password)
       .then((res) => {
-        console.log(res.user);
+        if (res.user) {
+          return toast.success("Login Successfull");
+        }
       })
       .catch((err) => {
-        console.log(err);
+        if (err.message) {
+          return toast.error("Login failed.");
+        }
       });
   };
   return (
-    <div className="flex h-fit flex-col md:flex-row justify-between items-center">
+    <div className="flex h-[90vh] flex-col md:flex-row justify-between items-center">
       <div className="flex-1">
         <img
           src="/public/images/login/login.svg"

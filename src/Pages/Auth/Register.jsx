@@ -3,6 +3,7 @@ import SocailLogin from "./SocailLogin";
 import useAuth from "../../hooks/useAuth";
 import { updateProfile } from "firebase/auth";
 import auth from "../../Firebase/firebase.config";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { createUser } = useAuth();
@@ -12,20 +13,20 @@ const Register = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const newUser = { name, email, password };
+    // const newUser = { name, email, password };
     createUser(email, password)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         updateProfile(auth.currentUser, {
           displayName: name,
         });
+        toast.success("Register Successfull.");
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        toast.error("Register failed.");
       });
   };
   return (
-    <div className="flex h-fit flex-col md:flex-row justify-between items-center">
+    <div className="flex h-[90vh] flex-col md:flex-row justify-between items-center">
       <div className="flex-1">
         <img
           src="/public/images/login/login.svg"

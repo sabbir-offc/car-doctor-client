@@ -28,11 +28,11 @@ const About = () => {
             <span className="mb-8 text-xs font-bold tracking-widest text-[#FF3811] uppercase">
               About Us
             </span>
-            <h1 className="mb-8 text-4xl font-bold leading-none tracking-tighter text-neutral-600 md:text-7xl lg:text-5xl">
+            <h1 className="mb-8 text-2xl font-bold leading-none tracking-tighter text-neutral-600 dark:text-neutral-200 md:text-4xl lg:text-5xl">
               We are qualified & of experience in this field
             </h1>
-            <p className="mb-5 text-base leading-relaxed text-left text-gray-500">{`There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`}</p>
-            <p className="mb-7 text-base leading-relaxed text-left text-gray-500">{`the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. `}</p>
+            <p className="mb-5 text-base leading-relaxed text-left text-gray-500 dark:text-zinc-300">{`There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`}</p>
+            <p className="mb-7 text-base leading-relaxed text-left text-gray-500 dark:text-zinc-300">{`the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. `}</p>
             <div className="mt-0 lg:mt-6 max-w-7xl sm:flex">
               <div className="mt-3 rounded-lg sm:mt-0">
                 <button className="items-center block px-10 py-4 text-base font-medium text-center text-white  duration-300 ease-in-out transform bg-[#FF3811] rounded-xl hover:bg-transparent hover:border-2 hover:border-[#FF3811] hover:text-[#FF3811] focus:outline-none focus:ring-2 focus:ring-offset-2 ">
