@@ -6,12 +6,11 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/firebase.config";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import axios from "axios";
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
-  const axiosSecure = useAxiosSecure();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   //creating user
@@ -41,7 +40,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       //if user exists then issue a token.
       if (currentUser) {
-        axiosSecure
+        axios
           .post("/jwt", loggedUser, {
             withCredentials: true,
           })
@@ -52,7 +51,7 @@ const AuthProvider = ({ children }) => {
             console.error(err);
           });
       } else {
-        axiosSecure
+        axios
           .post("/logout", loggedUser, {
             withCredentials: true,
           })
@@ -64,7 +63,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       return unSubscribe();
     };
-  }, [user?.email, axiosSecure]);
+  }, [user?.email]);
 
   const authInfo = { user, createUser, loginUser, loading, logOut };
   return (
