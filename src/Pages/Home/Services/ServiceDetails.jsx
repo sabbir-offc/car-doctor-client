@@ -1,7 +1,17 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useState } from "react";
 
 const ServiceDetails = () => {
-  const service = useLoaderData();
+  const [service, setService] = useState([]);
+  const params = useParams();
+  const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    axiosSecure.get(`/services/${params?.id}`).then((res) => {
+      setService(res.data);
+    });
+  }, [axiosSecure, params]);
   const { _id, img, title } = service;
   return (
     <div>

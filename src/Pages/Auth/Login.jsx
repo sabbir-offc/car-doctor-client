@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocailLogin from "./SocailLogin";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Login = () => {
   const { loginUser } = useAuth();
+  const location = useLocation();
+  console.log(location.state);
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -12,10 +16,20 @@ const Login = () => {
     const password = form.password.value;
 
     loginUser(email, password)
-      .then((res) => {
-        if (res.user) {
-          return toast.success("Login Successfull");
-        }
+      .then(() => {
+        const user = { email };
+        //get access token.
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            if (res.data.success) {
+              navigate(location.state ? location.state : "/");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        toast.success("Login Successfull");
       })
       .catch((err) => {
         if (err.message) {

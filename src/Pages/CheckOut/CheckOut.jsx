@@ -1,10 +1,23 @@
-import { useLoaderData } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
+import { useParams } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { useEffect } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const CheckOut = () => {
   const { user } = useAuth();
-  const { _id, price, title, img } = useLoaderData();
+  const axiosSecure = useAxiosSecure();
+  const params = useParams();
+  const [service, setService] = useState([]);
+
+  useEffect(() => {
+    axiosSecure.get(`/services/${params.id}`).then((res) => {
+      setService(res.data);
+    });
+  }, [axiosSecure, params]);
+  const { _id, price, title, img } = service;
 
   const handleBookService = (e) => {
     e.preventDefault();
@@ -27,7 +40,9 @@ const CheckOut = () => {
       price,
     };
     axios.post("http://localhost:5000/bookings", order).then((data) => {
-      console.log(data.data);
+      if (data.data.insertedId) {
+        toast.success("Order Placed Successfully.");
+      }
     });
   };
   return (
